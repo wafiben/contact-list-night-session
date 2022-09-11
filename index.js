@@ -1,5 +1,5 @@
 require("dotenv").config({ path: "./config/.env" });
-console.log(process.env.PORT);
+const cors=require("cors")
 const port = process.env.PORT || 7000;
 const express = require("express");
 const app = express();
@@ -13,6 +13,7 @@ app.listen(port, (e) => {
     : console.log(`server is running on port ${port}`);
 });
 connectDb();
+app.use(cors())
 //midelware global 
 app.use(express.json())
 app.use('/api',userRoute)

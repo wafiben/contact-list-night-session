@@ -1,24 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./Pages/Home";
+import CustomNavbar from "./Compoents/Navbar";
+import UserDetails from "./Compoents/UserDetails";
+import Alert from "./Compoents/Alert";
+import {useSelector} from "react-redux";
+import AdminDashboard from "./Pages/AdminDashboard";
+
 
 function App() {
+  const msg=useSelector(state=>state.msg)
+ 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <CustomNavbar />
+     {msg &&<Alert />} 
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/add-user" element={<AdminDashboard />} />
+        <Route path="/:id" element={<UserDetails />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
