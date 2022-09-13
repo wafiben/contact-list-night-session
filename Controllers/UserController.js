@@ -3,7 +3,7 @@ const getAllUsers = async (req, res) => {
   try {
     const users = await User.find();
     if (users.length === 0) {
-      res.status(100).json({ msg: "your database is empty" });
+      res.status(201).json({ msg: "your database is empty" });
     } else {
       res.status(200).json({ users: users });
     }
@@ -58,12 +58,15 @@ const updateUser = async (req, res) => {
   const id = req.params.id;
   const userInfo = req.body;
   try {
-    await User.findByIdAndUpdate(id, userInfo);
+    const updatedUser = await User.findByIdAndUpdate(id, userInfo, {
+      new: true,
+    });
+
     const users = await User.find();
-    res.status(200).json({ msg: "update user is succesfully", users: users });
+    res.status(200).json({ msg: "update user is succesfully", updatedUser });
   } catch (error) {
     res.status(400).json({ msg: "update user is failed" });
   }
 };
 
-module.exports = { getAllUsers, getOneUser, addUser, deleteUser,updateUser };
+module.exports = { getAllUsers, getOneUser, addUser, deleteUser, updateUser };

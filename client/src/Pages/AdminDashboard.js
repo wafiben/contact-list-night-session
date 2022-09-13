@@ -5,7 +5,7 @@ function AdminDashboard() {
   return (
     <div>
         <h1>ADd user</h1>
-        <FormUser/>
+        <FormUser commandeType='add'/>
     </div>
   )
 }
